@@ -1,7 +1,10 @@
 ﻿// Get flight parameters from the user
 double distance = GetValidInput("Enter the distance (NM): ");
 double airspeed = GetValidInput("Enter the speed (knots): ");
+
+// Get fuel parameters from user
 double fuelBurnRate = GetValidInput("Enter the fuel burn rate (kg/hr): ");
+double reserveMinutes = GetValidInput("Enter the reserve fuel duration (minutes): ");
 
 // Get wind parameters from the user
 Console.WriteLine("Enter wind direction (H = headwind, T = tailwind, N = None):");
@@ -28,10 +31,10 @@ else
 
 // Calculate flight time and required fuel
 double flightTime = distance / groundSpeed;
-double requiredFuel = flightTime * fuelBurnRate;
+double reserveHours = reserveMinutes / 60.0; 
+double requiredFuel = flightTime * fuelBurnRate + reserveHours * fuelBurnRate;
 
-
-Console.WriteLine($"Flight time: {flightTime:F2} hours");
+// Display required fuel to the user
 Console.WriteLine($"Required fuel: {requiredFuel:F2} kg");
 
 // Validate user input
