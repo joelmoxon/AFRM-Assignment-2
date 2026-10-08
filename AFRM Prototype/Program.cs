@@ -1,26 +1,26 @@
 ﻿// Get flight parameters from the user
 double distance = GetValidInput("Enter the distance (NM): ");
-double airspeed = GetValidInput("Enter the speed (knots): ");
+double airspeed = GetValidInput("Enter the airspeed (knots): ");
 
-// Get fuel parameters from user
+// Get fuel parameters from the user
 double fuelBurnRate = GetValidInput("Enter the fuel burn rate (kg/hr): ");
 double reserveMinutes = GetValidInput("Enter the reserve fuel duration (minutes): ");
 
 // Get wind parameters from the user
-Console.WriteLine("Enter wind direction (H = headwind, T = tailwind, N = None):");
+Console.Write("Enter wind direction (H = headwind, T = tailwind, N = None): ");
 string windDirection = Console.ReadLine() ?? "";
 
-Console.WriteLine("Enter wind speed (knots):");
+Console.Write("Enter wind speed (knots): ");
 double windSpeed = GetValidInput("");
 
 // Calculate ground speed based on wind direction
 double groundSpeed;
 
-if (windDirection == "H")
+if (windDirection == "H" || windDirection == "h")
 {
     groundSpeed = airspeed - windSpeed;
 }
-else if (windDirection == "T")
+else if (windDirection == "T" || windDirection == "t")
 {
     groundSpeed = airspeed + windSpeed;
 }
@@ -29,13 +29,23 @@ else
     groundSpeed = airspeed;
 }
 
+// Ensure ground speed is greater than zero
+if (groundSpeed <= 0)
+{
+    Console.WriteLine("Error: Ground speed must be greater than 0. Check wind conditions.");
+    return;
+}
+
 // Calculate flight time and required fuel
 double flightTime = distance / groundSpeed;
 double reserveHours = reserveMinutes / 60.0; 
 double requiredFuel = flightTime * fuelBurnRate + reserveHours * fuelBurnRate;
 
 // Display required fuel to the user
+Console.WriteLine();    
+Console.WriteLine("------------------------------------");  
 Console.WriteLine($"Required fuel: {requiredFuel:F2} kg");
+Console.WriteLine("------------------------------------");
 
 // Validate user input
 static double GetValidInput(string prompt)
