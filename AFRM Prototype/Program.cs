@@ -49,11 +49,11 @@ string fuelStatus;
 
 if (fuelDifference >= 0)
 {
-    fuelStatus = "Sufficient fuel";
+    fuelStatus = "SUFFICIENT fuel";
 }
 else
 {
-    fuelStatus = "Insufficient fuel";
+    fuelStatus = "INSUFFICIENT fuel";
 }
 
 // Display required fuel to the user
@@ -62,6 +62,7 @@ Console.WriteLine("------------------------------------");
 Console.WriteLine($"Required fuel: {requiredFuel:F2} kg");
 Console.WriteLine($"Current fuel: {currentFuel:F2} kg");
 Console.WriteLine($"Fuel difference: {fuelDifference:F2} kg");
+Console.WriteLine();
 Console.WriteLine($"Fuel status: {fuelStatus}");
 Console.WriteLine("------------------------------------");
 
