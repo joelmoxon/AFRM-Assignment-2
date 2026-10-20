@@ -5,6 +5,7 @@ double airspeed = GetValidInput("Enter the airspeed (knots): ");
 // Get fuel parameters from the user
 double fuelBurnRate = GetValidInput("Enter the fuel burn rate (kg/hr): ");
 double reserveMinutes = GetValidInput("Enter the reserve fuel duration (minutes): ");
+double currentFuel = GetValidInput("Enter the current fuel on board (kg): ");
 
 // Get wind parameters from the user
 Console.Write("Enter wind direction (H = headwind, T = tailwind, N = None): ");
@@ -41,10 +42,27 @@ double flightTime = distance / groundSpeed;
 double reserveHours = reserveMinutes / 60.0; 
 double requiredFuel = flightTime * fuelBurnRate + reserveHours * fuelBurnRate;
 
+// Calculate fuel difference and status
+double fuelDifference = currentFuel - requiredFuel;
+
+string fuelStatus;
+
+if (fuelDifference >= 0)
+{
+    fuelStatus = "Sufficient fuel";
+}
+else
+{
+    fuelStatus = "Insufficient fuel";
+}
+
 // Display required fuel to the user
 Console.WriteLine();    
 Console.WriteLine("------------------------------------");  
 Console.WriteLine($"Required fuel: {requiredFuel:F2} kg");
+Console.WriteLine($"Current fuel: {currentFuel:F2} kg");
+Console.WriteLine($"Fuel difference: {fuelDifference:F2} kg");
+Console.WriteLine($"Fuel status: {fuelStatus}");
 Console.WriteLine("------------------------------------");
 
 // Validate user input
