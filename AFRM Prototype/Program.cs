@@ -11,8 +11,18 @@ double currentFuel = GetValidInput("Enter the current fuel on board (kg): ");
 Console.Write("Enter wind direction (H = headwind, T = tailwind, N = None): ");
 string windDirection = Console.ReadLine() ?? "";
 
-Console.Write("Enter wind speed (knots): ");
-double windSpeed = GetValidInput("");
+double windSpeed;
+
+// Only ask for wind speed if the wind direction is not None
+if (windDirection != "N" && windDirection != "n")
+{
+    Console.Write("Enter wind speed (knots): ");
+    windSpeed = GetValidInput("");
+}
+else
+{
+    windSpeed = 0;
+}
 
 // Calculate ground speed based on wind direction
 double groundSpeed;
