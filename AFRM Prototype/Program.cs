@@ -8,37 +8,32 @@ double reserveMinutes = GetValidInput("Enter the reserve fuel duration (minutes)
 double currentFuel = GetValidInput("Enter the current fuel on board (kg): ");
 
 // Get wind parameters from the user
-Console.Write("Enter wind direction (H = headwind, T = tailwind, N = None): ");
-string windDirection = Console.ReadLine() ?? "";
+double windSpeed = GetValidInput("Enter the wind speed (knots): ");
+double windDirection;
 
-double windSpeed;
+while (true) 
+{
+    Console.Write("Enter relative wind direction (degrees): ");
 
-// Only ask for wind speed if the wind direction is not None
-if (windDirection != "N" && windDirection != "n")
-{
-    Console.Write("Enter wind speed (knots): ");
-    windSpeed = GetValidInput("");
-}
-else
-{
-    windSpeed = 0;
+    if (double.TryParse(Console.ReadLine(), out windDirection))
+    {
+        break;
+    }
+    else
+    {
+        Console.WriteLine("Invalid input. Please enter a number between 0 and 360.");
+    }
 }
 
-// Calculate ground speed based on wind direction
-double groundSpeed;
+// Calculate wind components   
+double headwindComponent = windSpeed * Math.Cos(windDirection * Math.PI / 180);
+double crosswindComponent = windSpeed * Math.Sin(windDirection * Math.PI / 180);
 
-if (windDirection == "H" || windDirection == "h")
-{
-    groundSpeed = airspeed - windSpeed;
-}
-else if (windDirection == "T" || windDirection == "t")
-{
-    groundSpeed = airspeed + windSpeed;
-}
-else
-{
-    groundSpeed = airspeed;
-}
+
+// Calculate ground speed 
+
+double forwardSpeed = airspeed - headwindComponent;
+double groundSpeed = Math.Sqrt(forwardSpeed * forwardSpeed + crosswindComponent * crosswindComponent);
 
 // Ensure ground speed is greater than zero
 if (groundSpeed <= 0)
