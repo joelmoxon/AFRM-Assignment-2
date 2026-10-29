@@ -15,7 +15,7 @@ while (true)
 {
     Console.Write("Enter relative wind direction (degrees): ");
 
-    if (double.TryParse(Console.ReadLine(), out windDirection))
+    if (double.TryParse(Console.ReadLine(), out windDirection) && windDirection >= 0 && windDirection <= 360)
     {
         break;
     }
