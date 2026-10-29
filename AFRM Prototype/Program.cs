@@ -7,8 +7,24 @@ double fuelBurnRate = GetValidInput("Enter the fuel burn rate (kg/hr): ");
 double reserveMinutes = GetValidInput("Enter the reserve fuel duration (minutes): ");
 double currentFuel = GetValidInput("Enter the current fuel on board (kg): ");
 
-// Get wind parameters from the user
-double windSpeed = GetValidInput("Enter the wind speed (knots): ");
+// Get wind speed from the user
+double windSpeed;
+
+while (true)
+{   
+    Console.Write("Enter wind speed (knots): ");
+
+    if (double.TryParse(Console.ReadLine(), out windSpeed) && windSpeed >= 0)
+    {
+        break;
+    }
+    else
+    {
+        Console.WriteLine("Invalid input. Please enter a number greater than or equal to 0.");
+    }
+}
+
+// Get wind direction from the user
 double windDirection;
 
 while (true) 
