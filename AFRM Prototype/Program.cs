@@ -51,8 +51,8 @@ double crosswindComponent = windSpeed * Math.Sin(windDirection * Math.PI / 180);
 double forwardSpeed = airspeed - headwindComponent;
 double groundSpeed = Math.Sqrt(forwardSpeed * forwardSpeed + crosswindComponent * crosswindComponent);
 
-// Ensure ground speed is greater than zero
-if (groundSpeed <= 0)
+// Use forward speed direction to ensure ground speed is greater than zero
+if (forwardSpeed <= 0)
 {
     Console.WriteLine("Error: Ground speed must be greater than 0. Check wind conditions.");
     return;
@@ -79,7 +79,7 @@ else
 
 // Display required fuel to the user
 Console.WriteLine();    
-Console.WriteLine("------------------------------------");  
+Console.WriteLine("------------------------------------");
 Console.WriteLine($"Required fuel: {requiredFuel:F2} kg");
 Console.WriteLine($"Current fuel: {currentFuel:F2} kg");
 Console.WriteLine($"Fuel difference: {fuelDifference:F2} kg");
